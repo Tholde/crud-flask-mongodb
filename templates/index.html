@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Task Manager</title>
+</head>
+<body class="ind">
+<h1>Task Manager</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Started Date</th>
+        <th>Ended Date</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    {% for task in tasks %}
+        <tbody>
+        <tr>
+            <td>{{ task.title }}</td>
+            <td>{{ task.description }}</td>
+            <td>{{ task.status }}</td>
+            <td>{{ task.started_date.strftime('%Y-%m-%d') }}</td>
+            <td>{{ task.ended_date.strftime('%Y-%m-%d') }}</td>
+            <td>
+                <button><a href="{{ url_for('edit', id=task._id) }}">Edit</a></button>
+                <button><a href="{{ url_for('delete_task', id=task._id) }}"
+                           onclick="return confirm('Tena manaiky ve ianao fa ho fafaina ny task {{ task.title }}?')">Delete</a> </button>
+            </td>
+        </tr>
+        </tbody>
+    {% endfor %}
+</table>
+<button><a href="{{ url_for('add') }}">Add Task</a></button>
+</body>
+</html>

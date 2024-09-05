@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Edit Task</title>
+</head>
+<body>
+<h1>Edit Task</h1>
+<form action="{{ url_for('update_task', id=task._id) }}" method="post">
+    <label for="title">Title:</label>
+    <input type="text" name="title" value="{{ task.title }}" required>
+    <label for="description">Description:</label>
+    <textarea name="description" required>{{ task.description }}</textarea>
+    <label for="status">Status:</label>
+    <select name="status" required>
+        <option value="start" {% if task.status == 'start' %}selected{% endif %}>Start</option>
+        <option value="in_regression" {% if task.status == 'in_regression' %}selected{% endif %}>In Regression</option>
+        <option value="end" {% if task.status == 'end' %}selected{% endif %}>End</option>
+    </select>
+    <label for="started_date">Started Date:</label>
+    <input type="date" name="started_date" value="{{ task.started_date.strftime('%Y-%m-%d') }}" required>
+    <label for="ended_date">Ended Date:</label>
+    <input type="date" name="ended_date" value="{{ task.ended_date.strftime('%Y-%m-%d') }}" required>
+    <button type="submit">Update Task</button>
+<button><a href="{{ url_for('index') }}">Back to Index</a></button>
+</form>
+</body>
+</html>
